@@ -1,0 +1,19 @@
+
+###############
+#    Redis    #
+#   Manager   #
+###############
+
+# Explain:
+# Asilux API use 2 redis database: Players account & Game-API database.
+redis-manager:
+  players-account:
+    ip: "localhost"
+    password: ""
+    port: 3306
+    database: 1
+  game-api:
+    ip: "localhost"
+    password: ""
+    port: 3306
+    database: 2
