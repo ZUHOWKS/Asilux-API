@@ -1,6 +1,25 @@
 plugins {
+    id 'maven-publish'
     id 'java'
     id "com.github.johnrengelman.shadow" version "5.2.0"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "AsiluxAPISpigot"
+            url = uri("https://maven.pkg.github.com/ZUHOWKS/Asilux-API-Spigot")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("ZUHOWKS")
+                password = project.findProperty("gpr.key") ?: System.getenv("gamejojo38")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }
 
 group = 'zuhowks'
@@ -17,6 +36,7 @@ repositories {
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
 }
+
 
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT'
