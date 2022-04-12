@@ -31,5 +31,5 @@ jobs:
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
-        MAVEN_USERNAME: ${{ secrets.JFROG_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.JFROG_TOKEN }}
+        MAVEN_USERNAME: ${{ secrets.actor }}
+        MAVEN_PASSWORD: ${{ secrets.ASILUX_API }}
