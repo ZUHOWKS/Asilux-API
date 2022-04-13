@@ -1,20 +1,7 @@
+
 plugins {
-    id 'maven-publish'
     id 'java'
     id "com.github.johnrengelman.shadow" version "5.2.0"
-}
-//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
-publishing {
-    repositories {
-        maven {
-            name = "TestASiluXApi"
-            url = uri("https://maven.pkg.github.com/ZUHOWKS/Asilux-API-Spigot")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("ZUHOWKS")
-                password = project.findProperty("gpr.key") ?: System.getenv("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")
-            }
-        }
-    }
 }
 
 group = 'zuhowks'
