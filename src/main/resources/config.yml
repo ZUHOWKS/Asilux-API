@@ -1,3 +1,20 @@
+################
+#   AEconomy   #
+################
+
+# Explain:
+# Asilux API can able to use a economy system customisable.
+asilux-economy:
+  # To enable/disable the Asilux Economy set the parameter to true/false.
+  enable: true
+
+  # Name of the money in the singular/plural
+  name-singular: "ACoin"
+  name-plural: "ACoins"
+
+  # Symbole of the money
+  symbol: "$"
+
 
 ###############
 #    Redis    #
@@ -7,11 +24,15 @@
 # Explain:
 # Asilux API use 2 redis database: Players account & Game-API database.
 redis-manager:
+
+  # Player account database credential
   players-account:
     ip: "localhost"
     password: ""
     port: 3306
     database: 1
+
+  # Game-API database credential
   game-api:
     ip: "localhost"
     password: ""
