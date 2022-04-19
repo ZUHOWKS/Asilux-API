@@ -1,2 +1,6 @@
 unknown-command:
-  en: "§Unknown command. try /help to get the list of the commands."
+  en: "§cUnknown command. try §b/help §cto get the list of the commands."
+  fr: "§cCommande inconnue. Essayez §b/help §cpour obtenir la liste des commandes."
+
+bank-info:
+  en: ""
