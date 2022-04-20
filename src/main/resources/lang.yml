@@ -3,4 +3,4 @@ unknown-command:
   fr: "§cCommande inconnue. Essayez §b/help §cpour obtenir la liste des commandes."
 
 bank-info:
-  en: ""
+  en: ["§e--- Bank Info ---","§eAccount:"]
