@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.junit.Test;
 import zuhowks.asiluxteam.fr.asiluxapi.commons.game.GamesRegistry;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.asilux.command.BankCommand;
+import zuhowks.asiluxteam.fr.asiluxapi.spigot.asilux.economy.AsiluxEconomy;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.asilux.game.GameManager;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisManager;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.listeners.player.PlayerJoinedListener;
@@ -20,6 +21,7 @@ public final class AsiluxAPI extends JavaPlugin {
     public GameManager gameManager;
     public boolean isLobby = true;
     public GamesRegistry gamesRegistry;
+    public AsiluxEconomy asiluxEconomy;
 
 
     @Override
@@ -36,15 +38,21 @@ public final class AsiluxAPI extends JavaPlugin {
         //Redis Access Setup
         RedisManager.initRedissons();
 
-        //Register and manage games and inventory of the game menu
+        //Registry element of the API
         this.gameManager = new GameManager();
         this.gamesRegistry = new GamesRegistry("gameAPI");
+        this.asiluxEconomy = new AsiluxEconomy(
+                this.getConfig().getString("asilux-economy.name-singular"), //Singular name of the money
+                this.getConfig().getString("asilux-economy.name-plural"), //Plural name of the money
+                this.getConfig().getString("asilux-economy.symbol"), //Symbol of the money
+                this.getConfig().getBoolean("asilux-economy.enable") //Is Asilux Economy is enable
+        );
 
         //Plugin Channel to communicate with BungeeCord Asilux-API
         this.getServer().getMessenger().registerIncomingPluginChannel(this, this.mainChannel, new ServerMessageListener());
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, this.mainChannel);
 
-        //Registery event Listener
+        //Registry event Listener
         eventsRegistry(this.getServer().getPluginManager(),
                 new PlayerJoinedListener(), //Player Joined Event listener
                 gameManager //Inventory of the game menu listener

@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import zuhowks.asiluxteam.fr.asiluxapi.commons.player.Account;
+import zuhowks.asiluxteam.fr.asiluxapi.spigot.AsiluxAPI;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisAccess;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisManager;
 
@@ -23,12 +24,23 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
+        if (sender instanceof Player && AsiluxAPI.INSTANCE.asiluxEconomy.isEnable()) {
             Player p = (Player) sender;
 
             Account pAccount = getAccount(p.getUniqueId());
             YamlConfiguration langYMl = YamlConfiguration.loadConfiguration(new File("lang.yml"));
             p.sendMessage(prefix + langYMl.getString("unknown-command." + pAccount.getLang()));
+            if (args.length == 0) {
+                List<String> bankInfo = (List<String>) langYMl.getList("bank-info." + pAccount.getLang());
+                p.sendMessage(prefix + bankInfo.get(0) + "\n   " +
+                        bankInfo.get(1) + " §b" + p.getName() + "\n   §e" +
+                        (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.asiluxEconomy.getNameSingular() : AsiluxAPI.INSTANCE.asiluxEconomy.getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.asiluxEconomy.getSymbol()
+                );
+            } else {
+                if (args[0].equals("help")) {
+                    p.sendMessage(prefix + " §eBank Help:");
+                }
+            }
             return true;
         }
 
