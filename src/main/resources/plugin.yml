@@ -5,3 +5,8 @@ prefix: Asilux-API
 author: ZUHOWKS
 description: The Asilux-API enable to manage the integrality of Asilux's structure. Since then, Asilux API is able to centralize the Asilux's economy, the player's outcoming data from servers, boutique purchase and in-game content.
 website: https://www.asilux.fr
+load: STARTUP
+
+permissions:
+  bank.admin:
+    default: op
