@@ -1,6 +1,12 @@
-unknown-command:
-  en: "§cUnknown command. try §b/help §cto get the list of the commands."
-  fr: "§cCommande inconnue. Essayez §b/help §cpour obtenir la liste des commandes."
+asilux:
+  unknown:
+    player:
+      en: "§cUnknown player."
+      fr: "§cJoueur inconnu"
+    command:
+      en: "§cUnknown command. try §b/help §cto get the list of the commands."
+      fr: "§cCommande inconnue. Essayez §b/help §cpour obtenir la liste des commandes."
 
-bank-info:
-  en: ["§e--- Bank Info ---","§eAccount:"]
+bank:
+  info:
+    en: ["§e--- Bank Info ---","§eAccount:"]
