@@ -39,7 +39,7 @@ public final class AsiluxAPI extends Plugin {
         //Get file & configuration file.
         configFile = new FileYML("config");
         Configuration configFileConfig = configFile.getConfig();
-        if (configFileConfig == null || !configFileConfig.contains("redis-manager")) {
+        if (configFileConfig == null || !configFileConfig.contains("redis-manager") || !configFileConfig.contains("mysql-manager")) {
             try {
                 Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File("config.yml"));
                 configFile.saveConfig(config);

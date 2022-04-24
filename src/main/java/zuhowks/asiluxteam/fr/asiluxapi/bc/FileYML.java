@@ -31,7 +31,7 @@ public class FileYML {
                 file.createNewFile();
 
                 Configuration configFile = this.getConfig();
-                if (configFile == null || !configFile.contains("redis-manager")) {
+                if (configFile == null || !configFile.contains("redis-manager") || !configFile.contains("mysql-manager")) {
                     Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File("config.yml"));
                     this.saveConfig(config);
                 }

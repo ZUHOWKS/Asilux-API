@@ -1,5 +1,5 @@
 # User-specific stuff
-.idea/
+../Asilux-API-BungeeCord/.idea/
 
 *.iml
 *.ipr
@@ -52,6 +52,8 @@ hs_err_pid*
 .DS_Store
 .AppleDouble
 .LSOverride
+.idea
+.gradle
 
 # Icon must end with two \r
 Icon

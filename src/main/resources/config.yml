@@ -17,3 +17,19 @@ redis-manager:
     password: ""
     port: 3306
     database: 2
+
+
+###############
+#    MySQL    #
+#   Manager   #
+###############
+
+# Explain:
+# Asilux API use one MySQL/SQL/MariaDB database: Players account. (Recommended MySQL or SQL)
+mysql-manager:
+  players-account:
+    host: "localhost"
+    username: "root"
+    password: "root"
+    port: 3306
+    database: "players_account"
