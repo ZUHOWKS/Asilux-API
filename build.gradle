@@ -1,6 +1,7 @@
 
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
     id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
@@ -16,6 +17,28 @@ repositories {
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "Asilux-API"
+            url = uri("https://maven.pkg.github.com/zuhowks/asilux-api")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            groupId = 'zuhowks'
+            artifactId = 'asiluxapi'
+            version = '1.0-SNAPSHOT'
+
+            from(components.java)
+        }
     }
 }
 
