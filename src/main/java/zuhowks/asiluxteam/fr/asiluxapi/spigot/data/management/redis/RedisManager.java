@@ -12,52 +12,39 @@ public enum RedisManager {
     GAME_API("game-api");
 
 
-    private RedisAccess redisAccess;
+    private RedisDatabase redisDatabase;
 
     RedisManager(String string) {
 
         FileConfiguration configuration = AsiluxAPI.INSTANCE.getConfig();
-        this.redisAccess = new RedisAccess(
+        this.redisDatabase = new RedisDatabase(new RedisAccess(
                 new RedisCredentials(
                     configuration.getString("redis-manager." + string + ".ip"),
                     configuration.getString("redis-manager." + string + ".password"),
                     configuration.getInt("redis-manager." + string + ".port"),
                     configuration.getInt("redis-manager." + string + ".database")
                 )
-        );
+        ));
 
     }
 
     public RedisAccess getRedisAccess() {
-        return redisAccess;
+        return redisDatabase.getRedisAccess();
     }
 
-    public void setRedisAccess(RedisAccess redisAccess) {
-        this.redisAccess = redisAccess;
+    public RedisDatabase getRedisDatabase() {
+        return redisDatabase;
     }
 
     public static void initRedissons() {
         for (RedisManager redisManager : values()) {
-            final Config config = new Config();
-
-            RedisCredentials credentials = redisManager.getRedisAccess().getRedisCredentials();
-
-            config.setCodec(new JsonJacksonCodec());
-            config.setThreads(2);
-            config.setNettyThreads(2);
-            config.useSingleServer()
-                    .setAddress(credentials.toRedisURL())
-                    .setPassword(credentials.getPassword())
-                    .setDatabase(credentials.getDatabase())
-                    .setClientName(credentials.getClientName());
-
-            redisManager.getRedisAccess().setRedissonClient(Redisson.create(config));
+            redisManager.getRedisDatabase().initRedisson();
         }
     }
 
     public static void closeRedissons() {
         for (RedisManager redisManager : values()) {
-            redisManager.getRedisAccess().getRedissonClient().shutdown();
+            redisManager.getRedisDatabase().closeRedisson();
         }
     }
 }
