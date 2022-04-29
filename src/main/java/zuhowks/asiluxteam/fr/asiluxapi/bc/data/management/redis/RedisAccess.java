@@ -15,6 +15,10 @@ public class RedisAccess {
         this.redissonClient = redissonClient;
     }
 
+    public RedisCredentials getRedisCredentials() {
+        return redisCredentials;
+    }
+
     public RedissonClient getRedissonClient() {
         return redissonClient;
     }
