@@ -17,11 +17,11 @@ import zuhowks.asiluxteam.fr.asiluxapi.spigot.listeners.server.ServerMessageList
 public final class AsiluxAPI extends JavaPlugin {
 
     public static AsiluxAPI INSTANCE;
-    public String mainChannel;
-    public GameManager gameManager;
-    public boolean isLobby = true;
-    public GamesRegistry gamesRegistry;
-    public AsiluxEconomy asiluxEconomy;
+    private String mainChannel;
+    private GameManager gameManager;
+    private boolean isLobby = true;
+    private GamesRegistry gamesRegistry;
+    private AsiluxEconomy asiluxEconomy;
 
 
     @Override
@@ -83,5 +83,25 @@ public final class AsiluxAPI extends JavaPlugin {
             if (eventListener instanceof Listener)
                 pluginManager.registerEvents((Listener) eventListener, this);
         }
+    }
+
+    public boolean isLobby() {
+        return isLobby;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    public AsiluxEconomy getAsiluxEconomy() {
+        return asiluxEconomy;
+    }
+
+    public GamesRegistry getGamesRegistry() {
+        return gamesRegistry;
+    }
+
+    public String getMainChannel() {
+        return mainChannel;
     }
 }
