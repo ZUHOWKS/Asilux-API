@@ -28,7 +28,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player && AsiluxAPI.INSTANCE.asiluxEconomy.isEnable()) {
+        if (sender instanceof Player && AsiluxAPI.INSTANCE.getAsiluxEconomy().isEnable()) {
             Player p = (Player) sender;
 
             final RedisAccess redisAccessAccount = RedisManager.PLAYERS_ACCOUNT.getRedisAccess();
@@ -44,7 +44,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                 List<String> bankInfo = (List<String>) langYMl.getList("bank.info." + pAccount.getLang());
                 p.sendMessage(prefix + bankInfo.get(0) + "\n   " +
                         bankInfo.get(1) + " §b" + p.getName() + "\n   §e" +
-                        (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.asiluxEconomy.getNameSingular() : AsiluxAPI.INSTANCE.asiluxEconomy.getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.asiluxEconomy.getSymbol()
+                        (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
                 );
             } else {
                 if (args[0].equals("help")) {
@@ -60,7 +60,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                     List<String> bankInfo = (List<String>) langYMl.getList("bank.info." + pAccount.getLang());
                     p.sendMessage(prefix + bankInfo.get(0) + "\n   " +
                             bankInfo.get(1) + " §b" + p.getName() + "\n   §e" +
-                            (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.asiluxEconomy.getNameSingular() : AsiluxAPI.INSTANCE.asiluxEconomy.getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.asiluxEconomy.getSymbol()
+                            (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
                     );
                 } else if (args[0].equals("pay")) {
                     if (args.length == 3) {

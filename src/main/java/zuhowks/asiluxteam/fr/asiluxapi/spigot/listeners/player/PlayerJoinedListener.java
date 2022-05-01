@@ -39,7 +39,7 @@ public class PlayerJoinedListener implements Listener {
             final RedisAccess redisAccessGames = RedisManager.GAME_API.getRedisAccess();
             final RedissonClient redissonClientGames = redisAccessGames.getRedissonClient();
             final RBucket<GamesRegistry> gamesRegistryRBucket = redissonClientGames.getBucket("gameAPI");
-            if (!gamesRegistryRBucket.get().equals(AsiluxAPI.INSTANCE.gamesRegistry)) {
+            if (!gamesRegistryRBucket.get().equals(AsiluxAPI.INSTANCE.getGamesRegistry())) {
 
                 final GamesRegistry gamesRegistry = gamesRegistryRBucket.get();
                 final List<String> gamesName = gamesRegistry.getGameNames();
@@ -49,7 +49,7 @@ public class PlayerJoinedListener implements Listener {
                 final List<String[]> descs = gamesRegistry.getDescriptions();
 
                 for (int i = 0; i < gamesRegistry.getGameNames().size(); i++) {
-                    AsiluxAPI.INSTANCE.gameManager.addGame(new GameAPI(gamesName.get(i), command.get(i), itemNames.get(i), materialNames.get(i), descs.get(i)));
+                    AsiluxAPI.INSTANCE.getGameManager().addGame(new GameAPI(gamesName.get(i), command.get(i), itemNames.get(i), materialNames.get(i), descs.get(i)));
                 }
             }
         });
@@ -58,7 +58,7 @@ public class PlayerJoinedListener implements Listener {
         out.writeUTF("refreshGame");
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(AsiluxAPI.INSTANCE, ()-> {
-            p.sendPluginMessage(AsiluxAPI.INSTANCE, AsiluxAPI.INSTANCE.mainChannel, out.toByteArray());
+            p.sendPluginMessage(AsiluxAPI.INSTANCE, AsiluxAPI.INSTANCE.getMainChannel(), out.toByteArray());
         }, 20L);
     }
 }

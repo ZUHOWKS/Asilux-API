@@ -15,7 +15,7 @@ public class ServerMessageListener implements PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if(channel.equals(AsiluxAPI.INSTANCE.mainChannel)) {
+        if(channel.equals(AsiluxAPI.INSTANCE.getMainChannel())) {
             final ByteArrayDataInput in = ByteStreams.newDataInput(message);
             final String sub = in.readUTF();
 
@@ -40,7 +40,7 @@ public class ServerMessageListener implements PluginMessageListener {
                 final String materialName = in.readUTF();
                 final String lore = in.readUTF();
 
-                AsiluxAPI.INSTANCE.gameManager.addGame(new GameAPI(gameName, command, itemName, Material.getMaterial(materialName), lore.split(",")));
+                AsiluxAPI.INSTANCE.getGameManager().addGame(new GameAPI(gameName, command, itemName, Material.getMaterial(materialName), lore.split(",")));
             }
         }
     }
