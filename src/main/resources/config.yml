@@ -20,13 +20,13 @@ redis-manager:
 
 
 ###############
-#    MySQL    #
+#     SQL     #
 #   Manager   #
 ###############
 
 # Explain:
-# Asilux API use one MySQL/SQL/MariaDB database: Players account. (Recommended MySQL or SQL)
-mysql-manager:
+# Asilux API use one MySQL/SQL/SQLite/MariaDB database: Players account. (Recommended MySQL or SQL)
+sql-manager:
   players-account:
     host: "localhost"
     username: "root"
