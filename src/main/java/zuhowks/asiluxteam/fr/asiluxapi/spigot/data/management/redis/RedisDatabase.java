@@ -10,38 +10,18 @@ public class RedisDatabase {
 
     private RedisAccess redisAccess;
 
-    public RedisDatabase() {
-    }
-
     public RedisDatabase(RedisAccess redisAccess) {
         this.redisAccess = redisAccess;
     }
 
-    public boolean setupRedisDatabase(String ip, String password, int port, int database) {
-        this.redisAccess = new RedisAccess(
-                new RedisCredentials(
-                        ip,
-                        password,
-                        port,
-                        database
-                )
-        );
-
-        this.initRedisson();
-        return !this.getRedisAccess().getRedissonClient().isShutdown();
-    }
-
     public Object getObjFromRedisDatabase(String key) {
-        if (!this.getRedisAccess().getRedissonClient().isShutdown()) {
-            final RedissonClient redissonClient = this.getRedisAccess().getRedissonClient();
-            final RBucket<Object> accountRBucket = redissonClient.getBucket(key);
-            return accountRBucket.get();
-        }
-        return null;
+        final RedissonClient redissonClient = this.getRedisAccess().getRedissonClient();
+        final RBucket<Object> accountRBucket = redissonClient.getBucket(key);
+        return accountRBucket.get();
     }
 
     public boolean setObjInRedisDatabase(String key, Object objet) {
-        if (!this.getRedisAccess().getRedissonClient().isShutdown() && objet != null) {
+        if (objet != null) {
             final RedissonClient redissonClient = this.getRedisAccess().getRedissonClient();
             final RBucket<Object> accountRBucket = redissonClient.getBucket(key);
             accountRBucket.set(objet);
