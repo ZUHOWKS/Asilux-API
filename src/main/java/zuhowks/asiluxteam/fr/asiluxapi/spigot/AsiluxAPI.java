@@ -11,6 +11,7 @@ import zuhowks.asiluxteam.fr.asiluxapi.spigot.asilux.command.BankCommand;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.asilux.economy.AsiluxEconomy;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.asilux.game.GameManager;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisManager;
+import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.sql.DatabaseManager;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.listeners.player.PlayerJoinedListener;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.listeners.server.ServerMessageListener;
 
@@ -37,6 +38,9 @@ public final class AsiluxAPI extends JavaPlugin {
 
         //Redis Access Setup
         RedisManager.initRedissons();
+
+        //SQL Access Setup
+        DatabaseManager.initAllDatabaseConnections();
 
         //Registry element of the API
         this.gameManager = new GameManager();
@@ -68,6 +72,7 @@ public final class AsiluxAPI extends JavaPlugin {
     @Override
     public void onDisable() {
         RedisManager.closeRedissons();
+        DatabaseManager.closeAllDatabaseConnections();
     }
 
 

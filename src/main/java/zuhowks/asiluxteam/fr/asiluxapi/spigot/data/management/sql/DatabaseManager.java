@@ -3,12 +3,11 @@ package zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.sql;
 import org.bukkit.configuration.file.FileConfiguration;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.AsiluxAPI;
 
-import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public enum DatabaseManager {
-    //Use main database
+    //Use Players Account database
     PLAYERS_ACCOUNT("players-account");
 
     private final SQLDatabase SQLDatabase;
@@ -16,7 +15,7 @@ public enum DatabaseManager {
     DatabaseManager(String database) {
         FileConfiguration configuration = AsiluxAPI.INSTANCE.getConfig();
         this.SQLDatabase = new SQLDatabase(
-                new DatabaseCredantial(
+                new DatabaseCredential(
                         configuration.getString("sql-manager." + database + ".host"),
                         configuration.getInt("sql-manager." + database + ".port"),
                         configuration.getString("sql-manager." + database + ".database"),

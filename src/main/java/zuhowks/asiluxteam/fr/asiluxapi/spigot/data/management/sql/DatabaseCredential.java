@@ -1,13 +1,14 @@
 package zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.sql;
 
-public class DatabaseCredantial {
+//Database Credential for MySQL
+public class DatabaseCredential {
     private String host;
     private int port;
     private String database;
     private String username;
     private String password;
 
-    public DatabaseCredantial(String host, int port, String database, String username, String password) {
+    public DatabaseCredential(String host, int port, String database, String username, String password) {
         this.host = host;
         this.port = port;
         this.database = database;

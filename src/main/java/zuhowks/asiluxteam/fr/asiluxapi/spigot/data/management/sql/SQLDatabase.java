@@ -6,11 +6,13 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+//Useful class for the plugin which use the Asilux-API
 public class SQLDatabase {
-    private DatabaseCredantial credantial;
+
+    private DatabaseCredential credantial;
     private HikariDataSource hikariDataSource;
 
-    public SQLDatabase(DatabaseCredantial databaseManager) {
+    public SQLDatabase(DatabaseCredential databaseManager) {
         this.credantial = databaseManager;
     }
 
