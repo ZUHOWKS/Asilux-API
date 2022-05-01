@@ -1,9 +1,8 @@
-package zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.mysql;
+package zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.sql;
 
 import net.md_5.bungee.config.Configuration;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.AsiluxAPI;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -11,11 +10,11 @@ public enum DatabaseManager {
     //Use main database
     PLAYERS_ACCOUNT("players-account");
 
-    private DatabaseAccess databaseAccess;
+    private SQLDatabase SQLDatabase;
 
     DatabaseManager(String database) {
         Configuration configuration = AsiluxAPI.INSTANCE.configFile.getConfig();
-        this.databaseAccess = new DatabaseAccess(
+        this.SQLDatabase = new SQLDatabase(
                 new DatabaseCredantial(
                         configuration.getString("sql-manager." + database + ".host"),
                         configuration.getInt("sql-manager." + database + ".port"),
@@ -25,13 +24,13 @@ public enum DatabaseManager {
         ));
     }
 
-    public DatabaseAccess getDatabaseAccess() {
-        return databaseAccess;
+    public SQLDatabase getDatabaseAccess() {
+        return SQLDatabase;
     }
 
     public static void initAllDatabaseConnection () {
         for (DatabaseManager databaseManager : values()) {
-            databaseManager.databaseAccess.initPool();
+            databaseManager.SQLDatabase.initPool();
             if (databaseManager.equals(DatabaseManager.PLAYERS_ACCOUNT)) {
                 try {
                     PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `players_account` (\n" +
@@ -56,7 +55,7 @@ public enum DatabaseManager {
 
     public static void closeAllDatabaseConnection () {
         for (DatabaseManager databaseManager : values()) {
-            databaseManager.databaseAccess.closePool();
+            databaseManager.SQLDatabase.closePool();
         }
     }
 }

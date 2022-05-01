@@ -3,18 +3,15 @@ package zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.redis;
 import net.md_5.bungee.config.Configuration;
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;
-import org.redisson.api.RKeys;
 import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.AsiluxAPI;
-import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.mysql.DatabaseManager;
+import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.sql.DatabaseManager;
 import zuhowks.asiluxteam.fr.asiluxapi.commons.player.Account;
 
-import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public enum RedisManager {
 

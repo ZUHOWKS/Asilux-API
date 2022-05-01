@@ -5,15 +5,13 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
-import zuhowks.asiluxteam.fr.asiluxapi.bc.AsiluxAPI;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.data.exceptions.AccountNotFoundException;
-import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.mysql.DatabaseManager;
+import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.sql.DatabaseManager;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.redis.RedisAccess;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.redis.RedisManager;
 import zuhowks.asiluxteam.fr.asiluxapi.commons.player.Account;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class AccountProvider {

@@ -1,4 +1,4 @@
-package zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.mysql;
+package zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.sql;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -6,15 +6,15 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DatabaseAccess {
+public class SQLDatabase {
     private DatabaseCredantial credantial;
     private HikariDataSource hikariDataSource;
 
-    public DatabaseAccess (DatabaseCredantial databaseManager) {
+    public SQLDatabase(DatabaseCredantial databaseManager) {
         this.credantial = databaseManager;
     }
 
-    public void setupHikariCP() {
+    public void initPool() {
         final HikariConfig hikariConfig = new HikariConfig();
 
         hikariConfig.setMaximumPoolSize(20);
@@ -29,10 +29,6 @@ public class DatabaseAccess {
         this.hikariDataSource = new HikariDataSource(hikariConfig);
     }
 
-    public void initPool() {
-        setupHikariCP();
-    }
-
     public void closePool() {
         this.hikariDataSource.close();
     }
@@ -40,7 +36,7 @@ public class DatabaseAccess {
     public Connection getConnection () {
         if (this.hikariDataSource == null) {
             System.out.println("Not connected");
-            setupHikariCP();
+            this.initPool();
         }
         try {
             return this.hikariDataSource.getConnection();

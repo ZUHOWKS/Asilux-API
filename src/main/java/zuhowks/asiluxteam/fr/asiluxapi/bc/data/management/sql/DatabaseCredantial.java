@@ -1,4 +1,4 @@
-package zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.mysql;
+package zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.sql;
 
 public class DatabaseCredantial {
     private String host;

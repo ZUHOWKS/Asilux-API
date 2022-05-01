@@ -1,17 +1,15 @@
 package zuhowks.asiluxteam.fr.asiluxapi.bc;
 
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import org.yaml.snakeyaml.Yaml;
 import zuhowks.asiluxteam.fr.asiluxapi.commons.game.GamesRegistry;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.redis.RedisManager;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.eventslistener.player.PlayerListener;
 import zuhowks.asiluxteam.fr.asiluxapi.bc.eventslistener.proxy.ProxyListener;
-import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.mysql.DatabaseManager;
+import zuhowks.asiluxteam.fr.asiluxapi.bc.data.management.sql.DatabaseManager;
 
 import java.io.File;
 import java.io.IOException;
