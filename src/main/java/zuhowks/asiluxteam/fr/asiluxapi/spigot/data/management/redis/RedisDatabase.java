@@ -31,7 +31,7 @@ public class RedisDatabase {
         return !this.getRedisAccess().getRedissonClient().isShutdown();
     }
 
-    public Object getObjFromRedisDatabase(String name, String key) {
+    public Object getObjFromRedisDatabase(String key) {
         if (!this.getRedisAccess().getRedissonClient().isShutdown()) {
             final RedissonClient redissonClient = this.getRedisAccess().getRedissonClient();
             final RBucket<Object> accountRBucket = redissonClient.getBucket(key);
@@ -40,7 +40,7 @@ public class RedisDatabase {
         return null;
     }
 
-    public boolean setObjInRedisDatabase(String name, String key, Object objet) {
+    public boolean setObjInRedisDatabase(String key, Object objet) {
         if (!this.getRedisAccess().getRedissonClient().isShutdown() && objet != null) {
             final RedissonClient redissonClient = this.getRedisAccess().getRedissonClient();
             final RBucket<Object> accountRBucket = redissonClient.getBucket(key);
