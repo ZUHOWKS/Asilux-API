@@ -11,7 +11,7 @@ public enum DatabaseManager {
     //Use main database
     PLAYERS_ACCOUNT("players-account");
 
-    private SQLDatabase SQLDatabase;
+    private final SQLDatabase SQLDatabase;
 
     DatabaseManager(String database) {
         FileConfiguration configuration = AsiluxAPI.INSTANCE.getConfig();
@@ -29,7 +29,7 @@ public enum DatabaseManager {
         return SQLDatabase;
     }
 
-    public static void initAllDatabaseConnection () {
+    public static void initAllDatabaseConnections () {
         for (DatabaseManager databaseManager : values()) {
             databaseManager.SQLDatabase.initPool();
             if (databaseManager.equals(DatabaseManager.PLAYERS_ACCOUNT) && !AsiluxAPI.INSTANCE.getServer().spigot().getSpigotConfig().getBoolean("settings.bungeecord")) {
@@ -54,7 +54,7 @@ public enum DatabaseManager {
         }
     }
 
-    public static void closeAllDatabaseConnection () {
+    public static void closeAllDatabaseConnections () {
         for (DatabaseManager databaseManager : values()) {
             databaseManager.SQLDatabase.closePool();
         }
