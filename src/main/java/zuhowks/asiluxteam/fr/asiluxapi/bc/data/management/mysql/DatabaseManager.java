@@ -17,11 +17,11 @@ public enum DatabaseManager {
         Configuration configuration = AsiluxAPI.INSTANCE.configFile.getConfig();
         this.databaseAccess = new DatabaseAccess(
                 new DatabaseCredantial(
-                        configuration.getString("mysql-manager." + database + ".host"),
-                        configuration.getInt("mysql-manager." + database + ".port"),
-                        configuration.getString("mysql-manager." + database + ".database"),
-                        configuration.getString("mysql-manager." + database + ".username"),
-                        configuration.getString("mysql-manager." + database + ".password")
+                        configuration.getString("sql-manager." + database + ".host"),
+                        configuration.getInt("sql-manager." + database + ".port"),
+                        configuration.getString("sql-manager." + database + ".database"),
+                        configuration.getString("sql-manager." + database + ".username"),
+                        configuration.getString("sql-manager." + database + ".password")
         ));
     }
 
