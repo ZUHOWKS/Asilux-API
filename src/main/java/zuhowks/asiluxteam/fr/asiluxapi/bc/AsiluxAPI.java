@@ -18,6 +18,7 @@ import java.sql.SQLException;
 public final class AsiluxAPI extends Plugin {
 
     public static AsiluxAPI INSTANCE;
+    public File pluginFile;
     public FileYML configFile;
     public String mainChannel;
     public GamesRegistry gamesRegistry;
@@ -26,6 +27,8 @@ public final class AsiluxAPI extends Plugin {
     public void onEnable() {
         INSTANCE = this;
 
+        //Get file & configuration file.
+        configFile = new FileYML("config");
 
         //Init Database & Redis
         DatabaseManager.initAllDatabaseConnection();
@@ -34,28 +37,9 @@ public final class AsiluxAPI extends Plugin {
         //ZUHOWKS Account
         //accounts.add(new Account(0, UUID.fromString("b887bc07-dd49-4aee-9193-dd159ee4912a"), "Admin", 100000, 100, 15800));
 
-        //Get file & configuration file.
-        configFile = new FileYML("config");
-        Configuration configFileConfig = configFile.getConfig();
-        if (configFileConfig == null || !configFileConfig.contains("redis-manager") || !configFileConfig.contains("mysql-manager")) {
-            try {
-                Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File("config.yml"));
-                configFile.saveConfig(config);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         //Init gamesRegistry;
         gamesRegistry = new GamesRegistry("gameAPI");
         //gamesRegistry.registerGame("Bedwars", "say cc", ChatColor.RED + "Bedwars" , "BED", "Click ?");
-
-
-        //Connection to database.
-        if (configFileConfig != null) {
-        } else {
-            System.out.println("§6[§eAsilux-API§6] §r Error config file not find. Not able to connect proxy with database.");
-        }
 
         //Register AListener channel for all servers => Main Channel!
         this.mainChannel = "AListener";
