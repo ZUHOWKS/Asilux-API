@@ -6,13 +6,16 @@ import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class FileYML {
 
-    private String fileName;
+    private final File file;
+    private final String fileName;
 
     public FileYML(String fileName) {
         this.fileName = fileName;
+        this.file = new File(AsiluxAPI.INSTANCE.getDataFolder(), fileName + ".yml");
         createFile();
     }
 
@@ -21,20 +24,13 @@ public class FileYML {
      */
     public void createFile() {
         if (!AsiluxAPI.INSTANCE.getDataFolder().exists()) {
-            AsiluxAPI.INSTANCE.getDataFolder().mkdir();
+            AsiluxAPI.INSTANCE.getDataFolder().mkdir(); // Creates the plugin's folder inside '/plugins'
         }
-
-        File file = new File(AsiluxAPI.INSTANCE.getDataFolder(), fileName + ".yml");
 
         if (!file.exists()) {
             try {
-                file.createNewFile();
-
-                Configuration configFile = this.getConfig();
-                if (configFile == null || !configFile.contains("redis-manager") || !configFile.contains("mysql-manager")) {
-                    Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File("config.yml"));
-                    this.saveConfig(config);
-                }
+                Files.copy(AsiluxAPI.INSTANCE.getResourceAsStream(fileName + ".yml"), // This will copy your default config.yml from the jar
+                        file.toPath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
