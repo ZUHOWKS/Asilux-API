@@ -39,9 +39,16 @@ public class AccountProvider {
 
     public void sendAccount(Account account) {
         sendAccountToRedis(account);
+        sendAccountToSQL(account);
     }
 
     public void sendAccountToSQL (Account account) {
+        try {
+            final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement("UPDATE `players_account` SET id=" + account.getId() + ", uuid=" + account.getUuid() + ", rank=" + account.getRank(), Integer.parseInt(", coins=" + account.getCoins() + ", level=" + account.getLevel() + ", xp=" + account.getXp() + ", mmr=" + account.getMMR() + " WHERE id=" + account.getId()));
+            ps.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
