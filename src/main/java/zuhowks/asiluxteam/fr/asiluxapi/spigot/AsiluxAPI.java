@@ -64,6 +64,9 @@ public final class AsiluxAPI extends JavaPlugin {
 
         //Registry Command
         this.getCommand("bank").setExecutor(new BankCommand());
+        this.getCommand("bank").setTabCompleter(new BankCommand());
+        this.getCommand("b").setExecutor(new BankCommand());
+        this.getCommand("b").setTabCompleter(new BankCommand());
 
         final ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("asiluxGamesRefresh");

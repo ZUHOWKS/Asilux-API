@@ -7,6 +7,23 @@ description: The Asilux-API enable to manage the integrality of Asilux's structu
 website: https://www.asilux.fr
 load: STARTUP
 
+commands:
+  bank:
+    description: "You are not allowed to perform this command."
+    permission: "bank.player"
+    permission-message: "You are not allowed to perform this command."
+    usage: "/bank"
+  b:
+    description: "You are not allowed to perform this command."
+    permission: "bank.player"
+    permission-message: "You are not allowed to perform this command."
+    usage: "/b"
+
+
 permissions:
+  bank.player:
+    default: true
+    description: "Get the access to the basic bank commands."
   bank.admin:
     default: op
+    description: "Get the access to all bank commands."
