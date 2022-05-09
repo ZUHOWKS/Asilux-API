@@ -26,6 +26,14 @@ public class AccountProvider {
         this.redisAccess = RedisManager.PLAYERS_ACCOUNT.getRedisAccess();
     }
 
+    /**
+     * Get account from Redis OR (if not exist) from SQL database.
+     * <P><B>Note:</B> It's recommended to run this methode <code>Asynchronously</code> to avoid
+     * a server hanging.
+     * <P>
+     * @return Return an <code>Account</code> of the Player.
+     * @throws AccountNotFoundException
+     */
     public Account getAccount() throws AccountNotFoundException {
         Account account = getAccountFromRedis();
         if (account == null) {
@@ -37,6 +45,13 @@ public class AccountProvider {
         return account;
     }
 
+    /**
+     * Send account in SQL & Redis database.
+     * <P><B>Note:</B> It's recommended to run this methode <code>Asynchronously</code> to avoid
+     * a server hanging.
+     * <P>
+     * @param account Type: <code>Account</code> | Account of the player.
+     */
     public void sendAccount(Account account) {
         sendAccountToRedis(account);
         sendAccountToSQL(account);
