@@ -2,11 +2,19 @@ asilux:
   unknown:
     player:
       en: "§cUnknown player."
-      fr: "§cJoueur inconnu"
+      fr: "§cJoueur inconnu."
     command:
       en: "§cUnknown command. try §b/help §cto get the list of the commands."
       fr: "§cCommande inconnue. Essayez §b/help §cpour obtenir la liste des commandes."
 
 bank:
   info:
-    en: ["§e--- Bank Info ---","§eAccount:"]
+    en: "§e--- Bank Info ---\n §eAccount:§b %s §e\n"
+    fr: ["§e--- Bank Info ---\n §eCompte:§b %s §e\n"]
+  transaction:
+    pay:
+      en: "§eTransaction successfully with the account of§6 %1$s §efor an amount of§b %2$d §e %3$s"
+      fr: "§eTransaction réussie avec le compte de§6 %1$s d'un montant de %2$d §e%2$s."
+    set:
+      en: "§eOperation successfully on the account of§6 %1$s for an amount set of§b %2$d §e%3$s."
+      fr: "§eOpération réussie sur le compte de§6 %1$s §epour un montant fixé à§b %2$d §e%3$s."
