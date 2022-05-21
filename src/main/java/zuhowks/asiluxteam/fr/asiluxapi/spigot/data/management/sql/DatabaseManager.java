@@ -31,7 +31,7 @@ public enum DatabaseManager {
     public static void initAllDatabaseConnections () {
         for (DatabaseManager databaseManager : values()) {
             databaseManager.SQLDatabase.initPool();
-            if (databaseManager.equals(DatabaseManager.PLAYERS_ACCOUNT) && !AsiluxAPI.INSTANCE.getServer().spigot().getSpigotConfig().getBoolean("settings.bungeecord")) {
+            if (databaseManager.equals(DatabaseManager.PLAYERS_ACCOUNT)) { //&& !AsiluxAPI.INSTANCE.getServer().spigot().getSpigotConfig().getBoolean("settings.bungeecord")) {
                 try {
                     PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `players_account` (\n" +
                             "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" +
@@ -41,6 +41,7 @@ public enum DatabaseManager {
                             "  `level` smallint(6) NOT NULL,\n" +
                             "  `xp` int(11) NOT NULL,\n" +
                             "  `mmr` int(11),\n" +
+                            "  `lang` varchar(12),\n" +
                             "  PRIMARY KEY (`id`)," +
                             "  UNIQUE (`uuid`)" +
                             ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
