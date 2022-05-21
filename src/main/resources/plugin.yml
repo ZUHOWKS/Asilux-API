@@ -9,12 +9,12 @@ load: STARTUP
 
 commands:
   bank:
-    description: "You are not allowed to perform this command."
+    description: "Asilux bank command."
     permission: "bank.player"
     permission-message: "You are not allowed to perform this command."
     usage: "/bank"
   b:
-    description: "You are not allowed to perform this command."
+    description: "Asilux bank command."
     permission: "bank.player"
     permission-message: "You are not allowed to perform this command."
     usage: "/b"
