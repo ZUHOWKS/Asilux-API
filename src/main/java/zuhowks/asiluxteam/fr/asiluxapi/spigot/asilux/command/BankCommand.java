@@ -194,7 +194,6 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                 e.printStackTrace();
             }
         }
-
         return false;
     }
 
