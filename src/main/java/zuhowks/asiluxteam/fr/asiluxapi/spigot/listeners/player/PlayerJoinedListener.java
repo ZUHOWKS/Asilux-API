@@ -39,7 +39,7 @@ public class PlayerJoinedListener implements Listener {
             final RedisAccess redisAccessGames = RedisManager.GAME_API.getRedisAccess();
             final RedissonClient redissonClientGames = redisAccessGames.getRedissonClient();
             final RBucket<GamesRegistry> gamesRegistryRBucket = redissonClientGames.getBucket("gameAPI");
-            if (!gamesRegistryRBucket.get().equals(AsiluxAPI.INSTANCE.getGamesRegistry())) {
+            if (gamesRegistryRBucket.get() != null && !gamesRegistryRBucket.get().equals(AsiluxAPI.INSTANCE.getGamesRegistry())) {
 
                 final GamesRegistry gamesRegistry = gamesRegistryRBucket.get();
                 final List<String> gamesName = gamesRegistry.getGameNames();
