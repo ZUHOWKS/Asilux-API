@@ -59,7 +59,7 @@ public class AccountProvider {
 
     public void sendAccountToSQL (Account account) {
         try {
-            final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement("UPDATE `players_account` SET id=" + account.getId() + ", uuid=" + account.getUuid() + ", rank=" + account.getRank(), Integer.parseInt(", coins=" + account.getCoins() + ", level=" + account.getLevel() + ", xp=" + account.getXp() + ", mmr=" + account.getMMR() + " WHERE id=" + account.getId()));
+            final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement("UPDATE `players_account` SET id=" + account.getId() + ", uuid=" + account.getUuid() + ", rank=" + account.getRank() + ", coins=" + account.getCoins() + ", level=" + account.getLevel() + ", xp=" + account.getXp() + ", mmr=" + account.getMMR() + " WHERE id=" + account.getId());
             ps.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -121,7 +121,7 @@ public class AccountProvider {
 
     public Account registerAccount(UUID uuid, Connection connection) throws SQLException {
         final Account account = DEFAULT_ACCOUNT.clone();
-        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, rank, coins, level, xp) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, rank, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, uuid.toString());
         ps.setString(2, account.getRank());
         ps.setInt(3, account.getCoins());
