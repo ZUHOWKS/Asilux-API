@@ -76,7 +76,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                         if (args.length == 3) {
                             int pay = Integer.parseInt(args[2]);
                             if (pAccount.getCoins() >= pay) {
-                                Player pPayed = Bukkit.getPlayer(args[1]);
+                                final Player pPayed = Bukkit.getPlayer(args[1]);
                                 if (pPayed != null) {
                                     if (!pPayed.equals(p)) {
                                         final AccountProvider pPayedAP = new AccountProvider(pPayed);
@@ -87,7 +87,9 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
                                             pPayedAP.sendAccount(pPayedAccount);
                                             pAP.sendAccount(pAccount);
+
                                             p.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.pay." + pAccount.getLang()), pPayed.getName(), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
+                                            pPayed.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.receive.pay" + pAccount.getLang()), p.getName(), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
                                         } else {
                                             p.sendMessage(prefix + langYMl.getString("asilux.unknown.player." + pAccount.getLang()));
                                         }
@@ -95,9 +97,9 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                         p.sendMessage(prefix + ChatColor.RED + "You can't realise a transaction with yourself.");
                                     }
                                 } else {
-                                    OfflinePlayer pOffPayed = Bukkit.getOfflinePlayer(args[1]);
+                                    final Player pOffPayed = Bukkit.getOfflinePlayer(args[1]).getPlayer();
                                     if (pOffPayed != null) {
-                                        final AccountProvider pPayedAP = new AccountProvider(pPayed);
+                                        final AccountProvider pPayedAP = new AccountProvider(pOffPayed);
                                         final Account pPayedAccount = pPayedAP.getAccount();
                                         if (pPayedAccount != null) {
                                             pPayedAccount.setCoins(pPayedAccount.getCoins() + pay);
@@ -105,7 +107,9 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
                                             pPayedAP.sendAccount(pPayedAccount);
                                             pAP.sendAccount(pAccount);
-                                            p.sendMessage(prefix + String.format(langYMl.getString("asilux.unknown.player." + pAccount.getLang()), pPayed.getName(), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
+
+                                            p.sendMessage(prefix + String.format(langYMl.getString("asilux.unknown.player." + pAccount.getLang()), pOffPayed.getName(), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
+                                            pOffPayed.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.receive.pay" + pAccount.getLang()), p.getName(), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
                                         }
                                     } else {
                                         p.sendMessage(prefix + langYMl.getList("asilux.unknown.player." + pAccount.getLang()));
@@ -130,20 +134,22 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
                                         pPayedAP.sendAccount(pPayedAccount);
                                         p.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.set." + pAccount.getLang()), pPayed.getName(), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
+                                        pPayed.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.receive.fixe" + pAccount.getLang()), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
                                     } else {
                                         p.sendMessage(prefix + langYMl.getList("asilux.unknown.player." + pAccount.getLang()));
                                     }
                                 } else {
-                                    final OfflinePlayer pOffPayed = Bukkit.getOfflinePlayer(args[1]);
+                                    final Player pOffPayed = Bukkit.getOfflinePlayer(args[1]).getPlayer();
                                     if (pOffPayed != null) {
-                                        final AccountProvider pPayedAP = new AccountProvider(pPayed);
+                                        final AccountProvider pPayedAP = new AccountProvider(pOffPayed);
                                         final Account pPayedAccount = pPayedAP.getAccount();
 
                                         if (pPayedAccount != null) {
                                             pPayedAccount.setCoins(pay);
 
                                             pPayedAP.sendAccount(pPayedAccount);
-                                            p.sendMessage(prefix + ChatColor.RED + "Error! Try yo use the correct command syntax: " + ChatColor.AQUA + "/bank set <player> <integer>");
+                                            p.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.set." + pAccount.getLang()), pOffPayed.getName(), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
+                                            pOffPayed.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.receive.fixe" + pAccount.getLang()), pay, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
                                         }
                                     } else {
                                         p.sendMessage(prefix + langYMl.getList("asilux.unknown.player." + pAccount.getLang()));
@@ -164,19 +170,21 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
                                         pPayedAP.sendAccount(pPayedAccount);
                                         p.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.set." + pAccount.getLang()), pPayed.getName(), 0, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
+                                        pPayed.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.receive.fixe" + pAccount.getLang()), 0, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
                                     } else {
                                         p.sendMessage(prefix + langYMl.getList("asilux.unknown.player." + pAccount.getLang()));
                                     }
                                 } else {
-                                    final OfflinePlayer pOffPayed = Bukkit.getOfflinePlayer(args[1]);
+                                    final Player pOffPayed = Bukkit.getOfflinePlayer(args[1]).getPlayer();
                                     if (pOffPayed != null) {
-                                        final AccountProvider pPayedAP = new AccountProvider(pPayed);
+                                        final AccountProvider pPayedAP = new AccountProvider(pOffPayed);
                                         final Account pPayedAccount = pPayedAP.getAccount();
                                         if (pPayedAccount != null) {
                                             pPayedAccount.setCoins(0);
 
                                             pPayedAP.sendAccount(pPayedAccount);
                                             p.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.set." + pAccount.getLang()), pOffPayed.getName(), 0, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
+                                            pOffPayed.sendMessage(prefix + String.format(langYMl.getString("bank.transaction.receive.fixe" + pAccount.getLang()), 0, AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()));
                                         }
                                     } else {
                                         p.sendMessage(prefix + langYMl.getList("asilux.unknown.player." + pAccount.getLang()));
