@@ -12,6 +12,7 @@ import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisManager
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.sql.DatabaseManager;
 
 import java.sql.*;
+import java.util.Locale;
 import java.util.UUID;
 
 public class AccountProvider {
@@ -59,7 +60,17 @@ public class AccountProvider {
 
     public void sendAccountToSQL (Account account) {
         try {
-            final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement("UPDATE `players_account` SET id=" + account.getId() + ", uuid=" + account.getUuid() + ", rank=" + account.getRank() + ", coins=" + account.getCoins() + ", level=" + account.getLevel() + ", xp=" + account.getXp() + ", mmr=" + account.getMMR() + " WHERE id=" + account.getId());
+            final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement(
+                    "UPDATE `players_account` SET rank=?, coins=?, level=?, xp=?, mmr=?, lang=? WHERE id=? AND uuid=?"
+            );
+            ps.setString(1,account.getRank().toLowerCase(Locale.ROOT));
+            ps.setInt(2, account.getCoins());
+            ps.setInt(3, account.getLevel());
+            ps.setInt(4, account.getXp());
+            ps.setInt(5, account.getMMR());
+            ps.setString(6, account.getLang());
+            ps.setInt(7, account.getId());
+            ps.setString(8, account.getUuid().toString());
             ps.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
