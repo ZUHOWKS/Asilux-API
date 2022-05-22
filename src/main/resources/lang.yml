@@ -23,5 +23,5 @@ bank:
         en: "§aYou have received from the account of§6 %1$s §aan amount of§b %2$d %3$s§a."
         fr: "§aVous avez reçu depuis le compte de§6 %1$s §aun montant de§b %2$d %3$s§a."
       fixe:
-        en: "§aThe amount of your account has been fixed to %1$d %2$s§a."
-        fr: "§aLe montant de votre compte a été fixé à %1$d %2$s§a."
+        en: "§aThe amount of your account has been fixed to §b%1$d %2$s§a."
+        fr: "§aLe montant de votre compte a été fixé à §b%1$d %2$s§a."
