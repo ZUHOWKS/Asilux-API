@@ -62,7 +62,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                             );
                         } else {
                             //Bank command help for player
-                            p.sendMessage(prefix + " §eBank Help:\n" +
+                            p.sendMessage(prefix + ChatColor.GREEN + " Bank Help:\n" +
                                     ChatColor.AQUA + "  - /bank info" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Get information of your bank account.\n" +
                                     ChatColor.AQUA + "  - /bank pay <player> <integer>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Transit an amount to a player bank account.\n"
                             );
