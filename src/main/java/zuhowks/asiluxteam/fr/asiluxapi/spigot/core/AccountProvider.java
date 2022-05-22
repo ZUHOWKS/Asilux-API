@@ -2,10 +2,12 @@ package zuhowks.asiluxteam.fr.asiluxapi.spigot.core;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import zuhowks.asiluxteam.fr.asiluxapi.commons.player.Account;
+import zuhowks.asiluxteam.fr.asiluxapi.spigot.AsiluxAPI;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.exceptions.AccountNotFoundException;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisAccess;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisManager;
@@ -47,9 +49,7 @@ public class AccountProvider {
     }
 
     /**
-     * Send account in SQL & Redis database.
-     * <P><B>Note:</B> It's recommended to run this methode <code>Asynchronously</code> to avoid
-     * a server hanging.
+     * Send account to Redis & SQL database.
      * <P>
      * @param account Type: <code>Account</code> | Account of the player.
      */
@@ -58,27 +58,38 @@ public class AccountProvider {
         sendAccountToSQL(account);
     }
 
-    public void sendAccountToSQL (Account account) {
-        try {
-            final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement(
-                    "UPDATE `players_account` SET rank=?, coins=?, level=?, xp=?, mmr=?, lang=? WHERE id=? AND uuid=?"
-            );
-            ps.setString(1,account.getRank().toLowerCase(Locale.ROOT));
-            ps.setInt(2, account.getCoins());
-            ps.setInt(3, account.getLevel());
-            ps.setInt(4, account.getXp());
-            ps.setInt(5, account.getMMR());
-            ps.setString(6, account.getLang());
-            ps.setInt(7, account.getId());
-            ps.setString(8, account.getUuid().toString());
-            ps.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
+    /**
+     * Send account to SQL database.
+     * <P>
+     * @param account Type: <code>Account</code> | Account of the player.
+     */
+    public void sendAccountToSQL(Account account) {
+        Bukkit.getScheduler().runTaskAsynchronously(AsiluxAPI.INSTANCE, () -> {
+            try {
+                final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement(
+                        "UPDATE `players_account` SET rank=?, coins=?, level=?, xp=?, mmr=?, lang=? WHERE id=? AND uuid=?"
+                );
+                ps.setString(1,account.getRank().toLowerCase(Locale.ROOT));
+                ps.setInt(2, account.getCoins());
+                ps.setInt(3, account.getLevel());
+                ps.setInt(4, account.getXp());
+                ps.setInt(5, account.getMMR());
+                ps.setString(6, account.getLang());
+                ps.setInt(7, account.getId());
+                ps.setString(8, account.getUuid().toString());
+                ps.execute();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
     }
 
-    public void sendAccountToRedis (Account account) {
+    /**
+     * Send account to Redis database.
+     * <P>
+     * @param account Type: <code>Account</code> | Account of the player.
+     */
+    public void sendAccountToRedis(Account account) {
         final RedissonClient redissonClient = redisAccess.getRedissonClient();
         final String key = REDIS_KEY + this.player.getUniqueId().toString();
         final RBucket<Account> accountRBucket = redissonClient.getBucket(key);
