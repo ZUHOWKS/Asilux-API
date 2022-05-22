@@ -31,7 +31,7 @@ import java.util.*;
 
 public class BankCommand implements CommandExecutor, TabCompleter {
 
-    private String prefix = ChatColor.GREEN + "" + ChatColor.BOLD + "Asilux" + ChatColor.BLUE + "" + ChatColor.BOLD + " >>> ";
+    private String prefix = ChatColor.GREEN + "" + ChatColor.BOLD + "Asilux Bank" + ChatColor.AQUA + "" + ChatColor.BOLD + " >>> ";
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -45,7 +45,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
                 YamlConfiguration langYMl = AsiluxAPI.INSTANCE.getLangYamlConfig();
                 if (args.length == 0) {
-                    p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) + ChatColor.YELLOW + " " +
+                    p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) + ChatColor.GREEN + " " +
                             (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": " + ChatColor.AQUA + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
                     );
                 } else {

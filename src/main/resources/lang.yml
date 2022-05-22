@@ -9,12 +9,12 @@ asilux:
 
 bank:
   info:
-    en: "§e--- Bank Info ---\n §eAccount:§b %s §e\n"
-    fr: ["§e--- Bank Info ---\n §eCompte:§b %s §e\n"]
+    en: "§a--- Bank Info ---\n §aAccount:§b %s §a\n"
+    fr: ["§a--- Bank Info ---\n §aCompte:§b %s §a\n"]
   transaction:
     pay:
-      en: "§eTransaction successfully with the account of§6 %1$s §efor an amount of§b %2$d §e %3$s"
-      fr: "§eTransaction réussie avec le compte de§6 %1$s d'un montant de %2$d §e%2$s."
+      en: "§aTransaction successfully with the account of§6 %1$s §afor an amount of§b %2$d §a %3$s"
+      fr: "§aTransaction réussie avec le compte de§6 %1$s d'un montant de %2$d §a%2$s."
     set:
-      en: "§eOperation successfully on the account of§6 %1$s for an amount set of§b %2$d §e%3$s."
-      fr: "§eOpération réussie sur le compte de§6 %1$s §epour un montant fixé à§b %2$d §e%3$s."
+      en: "§aOperation successfully on the account of§6 %1$s for an amount set of§b %2$d §a%3$s."
+      fr: "§aOpération réussie sur le compte de§6 %1$s §apour un montant fixé à§b %2$d §a%3$s."
