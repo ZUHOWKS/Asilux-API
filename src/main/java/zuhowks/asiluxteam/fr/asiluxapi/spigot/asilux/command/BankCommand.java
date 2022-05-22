@@ -53,6 +53,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 
                         if (p.hasPermission("bank.admin")) {
+                            //Bank command help for admin
                             p.sendMessage(prefix + ChatColor.GREEN + " Bank Help:\n" +
                                     ChatColor.AQUA + "  - /bank info" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Get information about your bank account.\n" +
                                     ChatColor.AQUA + "  - /bank pay <player> <integer>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Transit an amount to the player bank account.\n" +
@@ -60,6 +61,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                     ChatColor.AQUA + "  - /bank reset <player>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Reset the player bank account.\n"
                             );
                         } else {
+                            //Bank command help for player
                             p.sendMessage(prefix + " §eBank Help:\n" +
                                     ChatColor.AQUA + "  - /bank info" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Get information of your bank account.\n" +
                                     ChatColor.AQUA + "  - /bank pay <player> <integer>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Transit an amount to a player bank account.\n"
