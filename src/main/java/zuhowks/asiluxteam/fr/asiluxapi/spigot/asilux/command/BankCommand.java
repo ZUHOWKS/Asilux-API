@@ -1,5 +1,6 @@
 package zuhowks.asiluxteam.fr.asiluxapi.spigot.asilux.command;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.util.FileUtil;
 import org.bukkit.util.StringUtil;
 import org.junit.Test;
 import org.redisson.api.RBucket;
@@ -22,6 +24,9 @@ import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisAccess;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.redis.RedisManager;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.*;
 
 public class BankCommand implements CommandExecutor, TabCompleter {
@@ -37,9 +42,8 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                 final Account pAccount = pAP.getAccount();
 
 
-                YamlConfiguration langYMl = YamlConfiguration.loadConfiguration(new File("lang.yml"));
 
-                p.sendMessage(prefix + langYMl.getString("asilux.unknown.command." + pAccount.getLang()));
+                YamlConfiguration langYMl = AsiluxAPI.INSTANCE.getLangYamlConfig();
                 if (args.length == 0) {
                     p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) +
                             (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
@@ -190,7 +194,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                     }
                 }
                 return true;
-            } catch (AccountNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

@@ -2,6 +2,8 @@ package zuhowks.asiluxteam.fr.asiluxapi.spigot;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import org.apache.commons.io.FileUtils;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +17,10 @@ import zuhowks.asiluxteam.fr.asiluxapi.spigot.data.management.sql.DatabaseManage
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.listeners.player.PlayerJoinedListener;
 import zuhowks.asiluxteam.fr.asiluxapi.spigot.listeners.server.ServerMessageListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 public final class AsiluxAPI extends JavaPlugin {
 
     public static AsiluxAPI INSTANCE;
@@ -23,6 +29,7 @@ public final class AsiluxAPI extends JavaPlugin {
     private boolean isLobby = true;
     private GamesRegistry gamesRegistry;
     private AsiluxEconomy asiluxEconomy;
+    private File langFile;
 
 
     @Override
@@ -35,6 +42,17 @@ public final class AsiluxAPI extends JavaPlugin {
 
         //Load & save config | If config file not exist, create a default config file
         this.saveDefaultConfig();
+
+        //
+        this.langFile = new File(this.getDataFolder(),"lang.yml");
+        if (!langFile.exists()) {
+            try {
+                Files.copy(AsiluxAPI.INSTANCE.getResource("lang.yml"), langFile.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         //Redis Access Setup
         RedisManager.initRedissons();
@@ -91,6 +109,10 @@ public final class AsiluxAPI extends JavaPlugin {
             if (eventListener instanceof Listener)
                 pluginManager.registerEvents((Listener) eventListener, this);
         }
+    }
+
+    public YamlConfiguration getLangYamlConfig() {
+        return YamlConfiguration.loadConfiguration(langFile);
     }
 
     public boolean isLobby() {
