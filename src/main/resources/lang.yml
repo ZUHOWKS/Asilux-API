@@ -19,9 +19,9 @@ bank:
       en: "§aOperation successfully on the account of§6 %1$s §afor an amount set of§b %2$d §a%3$s."
       fr: "§aOpération réussie sur le compte de§6 %1$s §apour un montant fixé à§b %2$d %3$s.§a"
     receive:
-      payed:
+      pay:
         en: "§aYou have received from the account of§6 %1$s §aan amount of§b %2$d %3$s§a."
         fr: "§aVous avez reçu depuis le compte de§6 %1$s §aun montant de§b %2$d %3$s§a."
-      fixed:
+      fixe:
         en: "§The amount of your account has been fixed to %1$d %2$s§a."
         fr: "§Le montant de votre compte a été fixé à %1$d %2$s§a."
