@@ -37,12 +37,14 @@ public class AccountProvider {
      * @return Return an <code>Account</code> of the Player.
      * @throws AccountNotFoundException
      */
-    public Account getAccount() throws AccountNotFoundException {
+    public Account getAccount(boolean withCreationIfNotExist) throws AccountNotFoundException {
         final Account accountFromRedis = getAccountFromRedis();
         if (accountFromRedis == null) {
 
-            final Account accountFromDatabase = getAccountFromDatabase();
-            sendAccountToRedis(accountFromDatabase);
+            final Account accountFromDatabase = getAccountFromDatabase(withCreationIfNotExist);
+            if (withCreationIfNotExist) {
+                sendAccountToRedis(accountFromDatabase);
+            }
             return accountFromDatabase;
         }
         return accountFromRedis;
@@ -105,7 +107,7 @@ public class AccountProvider {
         return accountRBucket.get();
     }
 
-    private Account getAccountFromDatabase() throws AccountNotFoundException {
+    private Account getAccountFromDatabase(boolean withCreationIfNotExist) throws AccountNotFoundException {
         final Connection connection = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection();
         final UUID uuid = player.getUniqueId();
 
@@ -130,7 +132,7 @@ public class AccountProvider {
 
                 } else {
                     ps.close();
-                    return registerAccount(uuid, connection);
+                    return withCreationIfNotExist ? registerAccount(uuid, connection) : null;
                 }
 
             } catch (SQLException throwables) {

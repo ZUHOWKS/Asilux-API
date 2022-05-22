@@ -39,7 +39,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
             Player p = (Player) sender;
             try {
                 final AccountProvider pAP = new AccountProvider(p);
-                final Account pAccount = pAP.getAccount();
+                final Account pAccount = pAP.getAccount(true);
 
 
 
@@ -80,7 +80,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                 if (pPayed != null) {
                                     if (!pPayed.equals(p)) {
                                         final AccountProvider pPayedAP = new AccountProvider(pPayed);
-                                        final Account pPayedAccount = pPayedAP.getAccount();
+                                        final Account pPayedAccount = pPayedAP.getAccount(true);
                                         if (pPayedAccount != null) {
                                             pPayedAccount.setCoins(pPayedAccount.getCoins() + pay);
                                             pAccount.setCoins(pAccount.getCoins() - pay);
@@ -100,7 +100,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                     final Player pOffPayed = Bukkit.getOfflinePlayer(args[1]).getPlayer();
                                     if (pOffPayed != null) {
                                         final AccountProvider pPayedAP = new AccountProvider(pOffPayed);
-                                        final Account pPayedAccount = pPayedAP.getAccount();
+                                        final Account pPayedAccount = pPayedAP.getAccount(false);
                                         if (pPayedAccount != null) {
                                             pPayedAccount.setCoins(pPayedAccount.getCoins() + pay);
                                             pAccount.setCoins(pAccount.getCoins() - pay);
@@ -128,7 +128,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                 final Player pPayed = Bukkit.getPlayer(args[1]);
                                 if (pPayed != null) {
                                     final AccountProvider pPayedAP = new AccountProvider(pPayed);
-                                    final Account pPayedAccount = pPayedAP.getAccount();
+                                    final Account pPayedAccount = pPayedAP.getAccount(true);
                                     if (pPayedAccount != null) {
                                         pPayedAccount.setCoins(pay);
 
@@ -143,7 +143,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                     final Player pOffPayed = Bukkit.getOfflinePlayer(args[1]).getPlayer();
                                     if (pOffPayed != null) {
                                         final AccountProvider pPayedAP = new AccountProvider(pOffPayed);
-                                        final Account pPayedAccount = pPayedAP.getAccount();
+                                        final Account pPayedAccount = pPayedAP.getAccount(false);
 
                                         if (pPayedAccount != null) {
                                             pPayedAccount.setCoins(pay);
@@ -165,7 +165,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                 final Player pPayed = Bukkit.getPlayer(args[1]);
                                 if (pPayed != null) {
                                     final AccountProvider pPayedAP = new AccountProvider(pPayed);
-                                    final Account pPayedAccount = pPayedAP.getAccount();
+                                    final Account pPayedAccount = pPayedAP.getAccount(true);
                                     if (pPayedAccount != null) {
                                         pPayedAccount.setCoins(0);
 
@@ -179,7 +179,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                     final Player pOffPayed = Bukkit.getOfflinePlayer(args[1]).getPlayer();
                                     if (pOffPayed != null) {
                                         final AccountProvider pPayedAP = new AccountProvider(pOffPayed);
-                                        final Account pPayedAccount = pPayedAP.getAccount();
+                                        final Account pPayedAccount = pPayedAP.getAccount(false);
                                         if (pPayedAccount != null) {
                                             pPayedAccount.setCoins(0);
 
