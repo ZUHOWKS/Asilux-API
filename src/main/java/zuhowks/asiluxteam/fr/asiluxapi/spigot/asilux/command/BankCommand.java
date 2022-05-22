@@ -45,7 +45,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
                 YamlConfiguration langYMl = AsiluxAPI.INSTANCE.getLangYamlConfig();
                 if (args.length == 0) {
-                    p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) + ChatColor.YELLOW +
+                    p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) + ChatColor.YELLOW + " " +
                             (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": " + ChatColor.AQUA + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
                     );
                 } else {
