@@ -13,8 +13,15 @@ bank:
     fr: "§a--- Bank Info ---\n §aCompte:§b %s §a\n"
   transaction:
     pay:
-      en: "§aTransaction successfully with the account of§6 %1$s §afor an amount of§b %2$d §a %3$s"
-      fr: "§aTransaction réussie avec le compte de§6 %1$s §ad'un montant de %2$d §a%2$s."
+      en: "§aTransaction successfully with the account of§6 %1$s §afor an amount of§b %2$d %3$s§a."
+      fr: "§aTransaction réussie avec le compte de§6 %1$s §ad'un montant de§b %2$d %3$s§a."
     set:
       en: "§aOperation successfully on the account of§6 %1$s §afor an amount set of§b %2$d §a%3$s."
-      fr: "§aOpération réussie sur le compte de§6 %1$s §apour un montant fixé à§b %2$d §a%3$s."
+      fr: "§aOpération réussie sur le compte de§6 %1$s §apour un montant fixé à§b %2$d %3$s.§a"
+    receive:
+      payed:
+        en: "§aYou have received from the account of§6 %1$s §aan amount of§b %2$d %3$s§a."
+        fr: "§aVous avez reçu depuis le compte de§6 %1$s §aun montant de§b %2$d %3$s§a."
+      fixed:
+        en: "§The amount of your account has been fixed to %1$d %2$s§a."
+        fr: "§Le montant de votre compte a été fixé à %1$d %2$s§a."
