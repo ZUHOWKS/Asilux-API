@@ -109,10 +109,10 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                                     }
                                 }
                             } else {
-
+                                p.sendMessage(prefix + langYMl.getList("asilux.unknown.command." + pAccount.getLang()));
                             }
                         } else {
-
+                            p.sendMessage(prefix + langYMl.getList("asilux.unknown.command." + pAccount.getLang()));
                         }
                     } else if (p.hasPermission("bank.admin")) {
                         if (args[0].equals("set")) {
