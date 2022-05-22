@@ -212,16 +212,23 @@ public class BankCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (sender instanceof Player) {
+            final Player p = (Player) sender;
             final List<String> result = new ArrayList<String>();
 
             if (args.length == 1) {
-                StringUtil.copyPartialMatches(args[0], Arrays.asList("info", "pay", "reset", "set", "help"), result);
+                if (p.hasPermission("bank.admin")) {
+                    StringUtil.copyPartialMatches(args[0], Arrays.asList("info", "pay", "reset", "set", "help"), result);
+                } else {
+                    StringUtil.copyPartialMatches(args[0], Arrays.asList("info", "pay", "help"), result);
+                }
                 Collections.sort(result);
 
             } else if (args.length == 2 && (args[0].equalsIgnoreCase("pay") || args[0].equalsIgnoreCase("reset") || args[0].equalsIgnoreCase("set"))) {
                 final List<String> args_1 = new ArrayList<String>();
                 for (Player player : AsiluxAPI.INSTANCE.getServer().getOnlinePlayers()) {
-                    args_1.add(player.getName());
+                    if (!player.getUniqueId().equals(p.getUniqueId())) {
+                        args_1.add(player.getName());
+                    }
                 }
 
                 Collections.sort(args_1);
