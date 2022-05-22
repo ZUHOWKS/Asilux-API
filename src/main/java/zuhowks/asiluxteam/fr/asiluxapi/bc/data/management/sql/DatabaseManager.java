@@ -41,7 +41,7 @@ public enum DatabaseManager {
                             "  `level` smallint(6) NOT NULL,\n" +
                             "  `xp` int(11) NOT NULL,\n" +
                             "  `mmr` int(11),\n" +
-                            "  `lang` varchar(11),\n" +
+                            "  `lang` varchar(11) CHARACTER SET latin1 NOT NULL,\n" +
                             "  PRIMARY KEY (`id`)," +
                             "  UNIQUE (`uuid`)" +
                             ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
