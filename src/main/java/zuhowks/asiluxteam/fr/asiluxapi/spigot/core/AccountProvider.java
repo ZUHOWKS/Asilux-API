@@ -38,14 +38,15 @@ public class AccountProvider {
      * @throws AccountNotFoundException
      */
     public Account getAccount() throws AccountNotFoundException {
-        Account account = getAccountFromRedis();
-        if (account == null) {
+        final Account accountFromRedis = getAccountFromRedis();
+        if (accountFromRedis == null) {
 
-            account = getAccountFromDatabase();
-            sendAccountToRedis(account);
+            final Account accountFromDatabase = getAccountFromDatabase();
+            sendAccountToRedis(accountFromDatabase);
+            return accountFromDatabase;
         }
         player.sendMessage(new TextComponent(ChatColor.AQUA + "Your account as been found successfully ! Welcome on " + ChatColor.YELLOW + "Asilux " + ChatColor.AQUA + "!"));
-        return account;
+        return accountFromRedis;
     }
 
     /**
@@ -108,7 +109,6 @@ public class AccountProvider {
     private Account getAccountFromDatabase() throws AccountNotFoundException {
         final Connection connection = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection();
         final UUID uuid = player.getUniqueId();
-        Account account = null;
 
         if (connection != null) {
             try {
@@ -127,18 +127,21 @@ public class AccountProvider {
                     final int xp = rs.getInt("xp");
                     final int mmr = rs.getInt("mmr");
                     final String lang = rs.getString("lang");
-                    account = new Account(id, uuid, rank, coins, level, xp, mmr, lang);
+                    ps.close();
+                    return new Account(id, uuid, rank, coins, level, xp, mmr, lang);
 
                 } else {
-                    account = registerAccount(uuid, connection);
+                    ps.close();
+                    return registerAccount(uuid, connection);
                 }
-                ps.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                return null;
             }
         }
 
-        return account;
+        return null;
     }
 
     public Account registerAccount(UUID uuid, Connection connection) throws SQLException {
