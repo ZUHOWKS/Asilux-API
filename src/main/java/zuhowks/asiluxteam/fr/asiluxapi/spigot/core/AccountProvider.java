@@ -45,7 +45,6 @@ public class AccountProvider {
             sendAccountToRedis(accountFromDatabase);
             return accountFromDatabase;
         }
-        player.sendMessage(new TextComponent(ChatColor.AQUA + "Your account as been found successfully ! Welcome on " + ChatColor.YELLOW + "Asilux " + ChatColor.AQUA + "!"));
         return accountFromRedis;
     }
 
@@ -118,7 +117,6 @@ public class AccountProvider {
                 final ResultSet rs = ps.getResultSet();
 
                 if (rs.next()) {
-                    player.sendMessage(new TextComponent(ChatColor.AQUA + "Your account as been found successfully ! Welcome on " + ChatColor.YELLOW + "Asilux " + ChatColor.AQUA + "!"));
 
                     final int id = rs.getInt("id");
                     final String rank = rs.getString("rank");
@@ -165,7 +163,6 @@ public class AccountProvider {
             account.setId(id);
             account.setUuid(uuid);
 
-            player.sendMessage(new TextComponent(ChatColor.AQUA + "Account creation successfully ! Welcome on " + ChatColor.YELLOW + "Asilux " + ChatColor.AQUA + "!"));
             sendAccountToRedis(account);
             return account;
             //AsiluxAPI.INSTANCE.accounts.add(account);
