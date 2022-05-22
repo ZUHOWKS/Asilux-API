@@ -53,16 +53,16 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
 
                         if (p.hasPermission("bank.admin")) {
-                            p.sendMessage(prefix + " §eBank Help:\n" +
-                                    "  - /bank info | Get information of your bank account.\n" +
-                                    "  - /bank pay <player> <integer> | Transit an amount to the player bank account.\n" +
-                                    "  - /bank set <player> <integer> | Realise an operation to set the amount.\n" +
-                                    "  - /bank reset <player> | Reset the player bank account.\n"
+                            p.sendMessage(prefix + ChatColor.GREEN + " Bank Help:\n" +
+                                    ChatColor.AQUA + "  - /bank info" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Get information about your bank account.\n" +
+                                    ChatColor.AQUA + "  - /bank pay <player> <integer>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Transit an amount to the player bank account.\n" +
+                                    ChatColor.AQUA + "  - /bank set <player> <integer>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Realise an operation to set the amount.\n" +
+                                    ChatColor.AQUA + "  - /bank reset <player>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Reset the player bank account.\n"
                             );
                         } else {
                             p.sendMessage(prefix + " §eBank Help:\n" +
-                                    "  - /bank info | Get information of your bank account.\n" +
-                                    "  - /bank pay <player> <integer> | Transit an amount to a player bank account.\n"
+                                    ChatColor.AQUA + "  - /bank info" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Get information of your bank account.\n" +
+                                    ChatColor.AQUA + "  - /bank pay <player> <integer>" + ChatColor.GRAY + " | " + ChatColor.GREEN + "Transit an amount to a player bank account.\n"
                             );
                         }
 
