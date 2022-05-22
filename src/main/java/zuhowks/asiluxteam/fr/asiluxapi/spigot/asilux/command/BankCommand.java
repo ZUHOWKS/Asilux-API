@@ -45,8 +45,8 @@ public class BankCommand implements CommandExecutor, TabCompleter {
 
                 YamlConfiguration langYMl = AsiluxAPI.INSTANCE.getLangYamlConfig();
                 if (args.length == 0) {
-                    p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) +
-                            (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
+                    p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) + ChatColor.YELLOW +
+                            (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": " + ChatColor.AQUA + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
                     );
                 } else {
                     if (args[0].equals("help")) {
@@ -67,10 +67,7 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                         }
 
                     } else if (args[0].equals("info") && args.length == 1) {
-                        List<String> bankInfo = langYMl.getStringList("bank.info." + pAccount.getLang());
-
-                        p.sendMessage(prefix + bankInfo.get(0) + "\n   " +
-                                bankInfo.get(1) + " §b" + p.getName() + "\n   §e" +
+                        p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) +
                                 (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
                         );
                     } else if (args[0].equals("pay")) {
