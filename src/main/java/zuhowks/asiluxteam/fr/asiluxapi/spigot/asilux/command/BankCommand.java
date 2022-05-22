@@ -69,8 +69,8 @@ public class BankCommand implements CommandExecutor, TabCompleter {
                         }
 
                     } else if (args[0].equals("info") && args.length == 1) {
-                        p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) +
-                                (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": §b" + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
+                        p.sendMessage(prefix + String.format(langYMl.getString("bank.info." + pAccount.getLang()), p.getName()) + " " +
+                                (pAccount.getCoins() <= 1 ? AsiluxAPI.INSTANCE.getAsiluxEconomy().getNameSingular() : AsiluxAPI.INSTANCE.getAsiluxEconomy().getNamePlural()) + ": " + ChatColor.BLUE + pAccount.getCoins() + AsiluxAPI.INSTANCE.getAsiluxEconomy().getSymbol()
                         );
                     } else if (args[0].equals("pay")) {
                         if (args.length == 3) {
