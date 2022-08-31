@@ -48,7 +48,7 @@ public class PlayerListener implements Listener {
             final Account account = accountRBucket.get();
 
             try {
-                final PreparedStatement ps = RedisManager.PLAYERS_ACCOUNT.getDatabaseManager().getDatabaseAccess().getConnection().prepareStatement("UPDATE players_account SET uuid=?, ranked=?, coins=?, level=?, xp=?, mmr=?, lang=?");
+                final PreparedStatement ps = RedisManager.PLAYERS_ACCOUNT.getDatabaseManager().getDatabaseAccess().getConnection().prepareStatement("UPDATE players_account SET uuid=?, ranked=?, coins=?, level=?, xp=?, mmr=?, lang=?;");
                 ps.setString(1, account.getUuid().toString());
                 ps.setString(2, account.getRank());
                 ps.setInt(3, account.getCoins());

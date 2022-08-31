@@ -60,7 +60,7 @@ public class AccountProvider {
 
         if (connection != null) {
             try {
-                PreparedStatement ps = connection.prepareStatement("SELECT * FROM players_account WHERE uuid = ?");
+                PreparedStatement ps = connection.prepareStatement("SELECT * FROM players_account WHERE uuid = ?;");
                 ps.setString(1,uuid.toString());
                 ps.executeQuery();
                 final ResultSet rs = ps.getResultSet();
@@ -89,7 +89,7 @@ public class AccountProvider {
 
     public Account registerAccount(UUID uuid, Connection connection) throws SQLException {
         final Account account = DEFAULT_ACCOUNT.clone();
-        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, ranked, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, ranked, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?);");
         ps.setString(1, uuid.toString());
         ps.setString(2, account.getRank());
         ps.setInt(3, account.getCoins());
