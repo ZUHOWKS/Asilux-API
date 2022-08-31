@@ -33,18 +33,18 @@ public enum DatabaseManager {
             databaseManager.SQLDatabase.initPool();
             if (databaseManager.equals(DatabaseManager.PLAYERS_ACCOUNT)) { //&& !AsiluxAPI.INSTANCE.getServer().spigot().getSpigotConfig().getBoolean("settings.bungeecord")) {
                 try {
-                    PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `players_account` (\n" +
-                            "  `id` int(11) NOT NULL AUTO_INCREMENT,\n" +
-                            "  `uuid` varchar(36) CHARACTER SET latin1 NOT NULL,\n" +
-                            "  `rank` varchar(32) CHARACTER SET latin1 NOT NULL,\n" +
-                            "  `coins` int(11) NOT NULL,\n" +
-                            "  `level` smallint(6) NOT NULL,\n" +
-                            "  `xp` int(11) NOT NULL,\n" +
-                            "  `mmr` int(11),\n" +
-                            "  `lang` varchar(12) CHARACTER SET latin1 NOT NULL,\n" +
-                            "  PRIMARY KEY (`id`)," +
-                            "  UNIQUE (`uuid`)" +
-                            ") ENGINE=InnoDB DEFAULT CHARSET=utf8"
+                    PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS players_account (\n" +
+                            "  id int(11) NOT NULL,\n" +
+                            "  uuid varchar(36) CHARACTER SET latin1 NOT NULL,\n" +
+                            "  ranked varchar(32) CHARACTER SET latin1 NOT NULL,\n" +
+                            "  coins int(11) NOT NULL,\n" +
+                            "  level int(6) NOT NULL,\n" +
+                            "  xp int(11) NOT NULL,\n" +
+                            "  mmr int(11),\n" +
+                            "  lang varchar(12) CHARACTER SET latin1 NOT NULL,\n" +
+                            "  PRIMARY KEY (id)," +
+                            "  UNIQUE (uuid)" +
+                            ")"
                     );
                     ps.execute();
                 } catch (SQLException throwable) {
