@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class AccountProvider {
     public static final String REDIS_KEY = "account:";
-    public static final Account DEFAULT_ACCOUNT = new Account(0, UUID.randomUUID(), "Champion", 100, 1, 0, 0, "en");
+    public static final Account DEFAULT_ACCOUNT = new Account(UUID.randomUUID(), "Champion", 100, 1, 0, 0, "en");
 
     private RedisAccess redisAccess;
     private Player player;
@@ -69,7 +69,7 @@ public class AccountProvider {
         Bukkit.getScheduler().runTaskAsynchronously(AsiluxAPI.INSTANCE, () -> {
             try {
                 final PreparedStatement ps = DatabaseManager.PLAYERS_ACCOUNT.getDatabaseAccess().getConnection().prepareStatement(
-                        "UPDATE `players_account` SET ranked=?, coins=?, level=?, xp=?, mmr=?, lang=? WHERE id=? AND uuid=?"
+                        "UPDATE `players_account` SET ranked=?, coins=?, level=?, xp=?, mmr=?, lang=? WHERE uuid=?"
                 );
                 ps.setString(1,account.getRank().toLowerCase(Locale.ROOT));
                 ps.setInt(2, account.getCoins());
@@ -77,8 +77,7 @@ public class AccountProvider {
                 ps.setInt(4, account.getXp());
                 ps.setInt(5, account.getMMR());
                 ps.setString(6, account.getLang());
-                ps.setInt(7, account.getId());
-                ps.setString(8, account.getUuid().toString());
+                ps.setString(7, account.getUuid().toString());
                 ps.execute();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -120,7 +119,6 @@ public class AccountProvider {
 
                 if (rs.next()) {
 
-                    final int id = rs.getInt("id");
                     final String rank = rs.getString("ranked");
                     final int coins = rs.getInt("coins");
                     final int level = rs.getInt("level");
@@ -128,7 +126,7 @@ public class AccountProvider {
                     final int mmr = rs.getInt("mmr");
                     final String lang = rs.getString("lang");
                     ps.close();
-                    return new Account(id, uuid, rank, coins, level, xp, mmr, lang);
+                    return new Account(uuid, rank, coins, level, xp, mmr, lang);
 
                 } else {
                     ps.close();
@@ -146,7 +144,7 @@ public class AccountProvider {
 
     public Account registerAccount(UUID uuid, Connection connection) throws SQLException {
         final Account account = DEFAULT_ACCOUNT.clone();
-        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, ranked, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, ranked, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?)");
         ps.setString(1, uuid.toString());
         ps.setString(2, account.getRank());
         ps.setInt(3, account.getCoins());
@@ -155,19 +153,10 @@ public class AccountProvider {
         ps.setInt(6, account.getMMR());
         ps.setString(7, account.getLang());
 
-        final int row = ps.executeUpdate();
-
-        final ResultSet rs = ps.getGeneratedKeys();
-
-        if (row > 0 && rs.next()) {
-            final int id = rs.getInt(1);
-
-            account.setId(id);
-            account.setUuid(uuid);
-
+        final boolean r = ps.execute();
+        if (r) {
             sendAccountToRedis(account);
             return account;
-            //AsiluxAPI.INSTANCE.accounts.add(account);
         }
         return null;
     }
