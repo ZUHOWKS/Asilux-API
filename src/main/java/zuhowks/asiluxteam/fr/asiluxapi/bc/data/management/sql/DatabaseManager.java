@@ -38,7 +38,7 @@ public enum DatabaseManager {
                             "  uuid varchar(36) CHARACTER SET latin1 NOT NULL,\n" +
                             "  ranked varchar(32) CHARACTER SET latin1 NOT NULL,\n" +
                             "  coins int(11) NOT NULL,\n" +
-                            "  level smallint(6) NOT NULL,\n" +
+                            "  level int(6) NOT NULL,\n" +
                             "  xp int(11) NOT NULL,\n" +
                             "  mmr int(11),\n" +
                             "  lang varchar(11) CHARACTER SET latin1 NOT NULL,\n" +
