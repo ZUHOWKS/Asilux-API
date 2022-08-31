@@ -35,7 +35,7 @@ publishing {
         gpr(MavenPublication) {
             groupId = 'fr.zuhowks'
             artifactId = 'asilux-api-spigot'
-            version = '1.5-SNAPSHOT'
+            version = '1.6-SNAPSHOT'
 
             from(components.java)
         }
