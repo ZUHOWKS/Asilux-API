@@ -69,7 +69,7 @@ public class AccountProvider {
                     player.sendMessage(new TextComponent(ChatColor.AQUA + "Your account as been found successfully ! Welcome on " + ChatColor.YELLOW + "Asilux " + ChatColor.AQUA + "!"));
 
                     final int id = rs.getInt("id");
-                    final String rank = rs.getString("rank");
+                    final String rank = rs.getString("ranked");
                     final int coins = rs.getInt("coins");
                     final int level = rs.getInt("level");
                     final int xp = rs.getInt("xp");
@@ -91,7 +91,7 @@ public class AccountProvider {
 
     public Account registerAccount(UUID uuid, Connection connection) throws SQLException {
         final Account account = DEFAULT_ACCOUNT.clone();
-        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, rank, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, ranked, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, uuid.toString());
         ps.setString(2, account.getRank());
         ps.setInt(3, account.getCoins());
