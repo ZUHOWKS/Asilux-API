@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class AccountProvider {
     public static final String REDIS_KEY = "account:";
-    public static final Account DEFAULT_ACCOUNT = new Account(0, UUID.randomUUID(), "Champion", 100, 1, 0, 0, "en");
+    public static final Account DEFAULT_ACCOUNT = new Account(UUID.randomUUID(), "Champion", 100, 1, 0, 0, "en");
 
     private RedisAccess redisAccess;
     private ProxiedPlayer player;
@@ -67,15 +67,13 @@ public class AccountProvider {
 
                 if (rs.next()) {
                     player.sendMessage(new TextComponent(ChatColor.AQUA + "Your account as been found successfully ! Welcome on " + ChatColor.YELLOW + "Asilux " + ChatColor.AQUA + "!"));
-
-                    final int id = rs.getInt("id");
                     final String rank = rs.getString("ranked");
                     final int coins = rs.getInt("coins");
                     final int level = rs.getInt("level");
                     final int xp = rs.getInt("xp");
                     final int mmr = rs.getInt("mmr");
                     final String lang = rs.getString("lang");
-                    account = new Account(id, uuid, rank, coins, level, xp, mmr, lang);
+                    account = new Account(uuid, rank, coins, level, xp, mmr, lang);
 
                 } else {
                     account = registerAccount(uuid, connection);
@@ -91,7 +89,7 @@ public class AccountProvider {
 
     public Account registerAccount(UUID uuid, Connection connection) throws SQLException {
         final Account account = DEFAULT_ACCOUNT.clone();
-        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, ranked, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        final PreparedStatement ps = connection.prepareStatement("INSERT INTO players_account (uuid, ranked, coins, level, xp, mmr, lang) VALUES (?, ?, ?, ?, ?, ?, ?)");
         ps.setString(1, uuid.toString());
         ps.setString(2, account.getRank());
         ps.setInt(3, account.getCoins());
@@ -100,14 +98,10 @@ public class AccountProvider {
         ps.setInt(6, account.getMMR());
         ps.setString(7, account.getLang());
 
-        final int row = ps.executeUpdate();
+        final boolean r = ps.execute();
 
-        final ResultSet rs = ps.getGeneratedKeys();
+        if (r) {
 
-        if (row > 0 && rs.next()) {
-            final int id = rs.getInt(1);
-
-            account.setId(id);
             account.setUuid(uuid);
 
             player.sendMessage(new TextComponent(ChatColor.AQUA + "Account creation successfully ! Welcome on " + ChatColor.YELLOW + "Asilux " + ChatColor.AQUA + "!"));

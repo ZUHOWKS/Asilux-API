@@ -33,17 +33,15 @@ public enum DatabaseManager {
             databaseManager.SQLDatabase.initPool();
             if (databaseManager.equals(DatabaseManager.PLAYERS_ACCOUNT)) {
                 try {
-                    PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS players_account (\n" +
-                            "  id int(11) NOT NULL,\n" +
-                            "  uuid varchar(36) CHARACTER SET latin1 NOT NULL,\n" +
-                            "  ranked varchar(32) CHARACTER SET latin1 NOT NULL,\n" +
-                            "  coins int(11) NOT NULL,\n" +
-                            "  level int(6) NOT NULL,\n" +
-                            "  xp int(11) NOT NULL,\n" +
-                            "  mmr int(11),\n" +
-                            "  lang varchar(11) CHARACTER SET latin1 NOT NULL,\n" +
-                            "  PRIMARY KEY (id)," +
-                            "  UNIQUE (uuid)" +
+                    PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS players_account (" +
+                            "  uuid varchar(36) CHARACTER SET latin1 NOT NULL," +
+                            "  ranked varchar(32) CHARACTER SET latin1 NOT NULL," +
+                            "  coins int(11) NOT NULL," +
+                            "  level int(6) NOT NULL," +
+                            "  xp int(11) NOT NULL," +
+                            "  mmr int(11)," +
+                            "  lang varchar(11) CHARACTER SET latin1 NOT NULL," +
+                            "  PRIMARY KEY (uuid)," +
                             ")"
                     );
                     ps.execute();

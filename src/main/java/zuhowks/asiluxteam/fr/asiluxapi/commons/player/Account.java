@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class Account implements Cloneable {
 
-    private int id;
     private UUID uuid;
     private String rank;
     private int coins;
@@ -15,8 +14,7 @@ public class Account implements Cloneable {
     public Account () {
     }
 
-    public Account(int id, UUID uuid, String rank, int coins, int level, int xp, int mmr, String lang) {
-        this.id = id;
+    public Account(UUID uuid, String rank, int coins, int level, int xp, int mmr, String lang) {
         this.uuid = uuid;
         this.rank = rank;
         this.coins = coins;
@@ -27,10 +25,6 @@ public class Account implements Cloneable {
     }
 
     private int xp;
-
-    public int getId() {
-        return id;
-    }
 
     public UUID getUuid() {
         return uuid;
@@ -50,10 +44,6 @@ public class Account implements Cloneable {
 
     public int getXp() {
         return xp;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getMMR() {
@@ -95,11 +85,11 @@ public class Account implements Cloneable {
 
     public void addXp(int coins) { this.coins += coins; }
 
-    public boolean equals (Object o) {
+    public boolean equals(Object o) {
         if (o == null || !(o instanceof Account)) {
             return false;
         }
-        return ((Account) o).getId() == this.id;
+        return ((Account) o).getUuid() == this.uuid;
     }
 
     public Account clone() {
