@@ -42,7 +42,7 @@ public enum DatabaseManager {
                             "  mmr int(11)," +
                             "  lang varchar(11) CHARACTER SET latin1 NOT NULL," +
                             "  PRIMARY KEY (uuid)," +
-                            ")"
+                            ");"
                     );
                     ps.execute();
                 } catch (SQLException throwable) {
