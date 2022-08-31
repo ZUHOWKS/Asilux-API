@@ -41,7 +41,7 @@ public enum DatabaseManager {
                             "  xp int(11) NOT NULL," +
                             "  mmr int(11)," +
                             "  lang varchar(11) CHARACTER SET latin1 NOT NULL," +
-                            "  PRIMARY KEY (uuid)," +
+                            "  PRIMARY KEY (uuid)" +
                             ");"
                     );
                     ps.execute();
