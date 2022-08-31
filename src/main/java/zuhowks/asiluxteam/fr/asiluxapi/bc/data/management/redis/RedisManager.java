@@ -89,7 +89,14 @@ public enum RedisManager {
                     final RBucket<Account> accountRBucket = redissonClient.getBucket(key);
                     final Account account = accountRBucket.get();
 
-                    final PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("UPDATE `players_account` SET id=" + account.getId() + ", uuid=" + account.getUuid() + ", rank=" + account.getRank() + ", coins=" + account.getCoins() + ", level=" + account.getLevel() + ", xp=" + account.getXp() + ", mmr=" + account.getMMR() + " WHERE id=" + account.getId());
+                    final PreparedStatement ps = databaseManager.getDatabaseAccess().getConnection().prepareStatement("UPDATE players_account SET uuid=?, ranked=?, coins=?, level=?, xp=?, mmr=?, lang=?");
+                    ps.setString(1, account.getUuid().toString());
+                    ps.setString(2, account.getRank());
+                    ps.setInt(3, account.getCoins());
+                    ps.setInt(4, account.getLevel());
+                    ps.setInt(5, account.getXp());
+                    ps.setInt(6, account.getMMR());
+                    ps.setString(7, account.getLang());
                     ps.execute();
                 }
             }
